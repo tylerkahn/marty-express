@@ -1,7 +1,7 @@
 var _ = require('lodash');
-var Marty = tryRequire('marty');
-var React = tryRequire('react');
-var Router = tryRequire('react-router');
+var Marty = require('marty');
+var React = require('react');
+var Router = require('react-router');
 var ServerCookies = require('./serverCookies');
 
 var HEADERS_TO_IGNORE = [
@@ -115,11 +115,3 @@ module.exports = function (options) {
     }
   };
 };
-
-function tryRequire(dep) {
-  try {
-    return module.parent.require(dep);
-  } catch (e) {
-    return require(dep);
-  }
-}
