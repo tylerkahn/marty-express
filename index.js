@@ -89,7 +89,14 @@ module.exports = function (options) {
         locals[options.body || 'body'] = renderResult.htmlBody.trim();
         locals[options.state || 'state'] = renderResult.htmlState.trim();
 
-        res.render(options.view || 'index', locals);
+        if (_.isFunction(options.render)) {
+            var respBody = options.render(locals);
+            res.setHeader('Content-Type', 'text/html; charset=UTF-8')
+            res.write(respBody);
+            res.end();
+        } else {
+            res.render(options.view || 'index', locals);
+        }
 
         if (_.isFunction(options.rendered)) {
           options.rendered(_.extend({
